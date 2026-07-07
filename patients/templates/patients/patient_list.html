@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Patient Records</h2>
+        <a href="{% url 'patient_create' %}" class="btn btn-primary">+ Add New Patient</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Height (cm)</th>
+                <th>Weight (kg)</th>
+                <th>BP Level</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+            <tr>
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.age }}</td>
+                <td>{{ patient.height }}</td>
+                <td>{{ patient.weight }}</td>
+                <td><strong>{{ patient.bp_level }}</strong></td>
+                <td>
+                    <a href="{% url 'patient_update' patient.pk %}" class="btn btn-primary" style="padding: 4px 8px;">Edit</a>
+                    <a href="{% url 'patient_delete' patient.pk %}" class="btn btn-danger" style="padding: 4px 8px;">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="text-align: center;">No patient data found. Click Add New Patient to populate details.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
